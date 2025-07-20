@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRC-20 Wallet Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+    .result {
+      margin-top: 1rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>BRC-20 Wallet Checker</h1>
+  <input type="text" id="address" placeholder="Enter Bitcoin address" />
+  <button onclick="getBalance()">Get Balance</button>
+  <button onclick="getTickers()">Get Tickers</button>  <div class="result" id="output"></div>  <script>
+    async function getBalance() {
+      const address = document.getElementById("address").value;
+      const res = await fetch(`http://localhost:3000/balance/${address}`);
+      const data = await res.json();
+      document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function getTickers() {
+      const address = document.getElementById("address").value;
+      const res = await fetch(`http://localhost:3000/tickers/${address}`);
+      const data = await res.json();
+      document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+    }
+  </script></body>
+</html>
